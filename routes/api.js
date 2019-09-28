@@ -135,5 +135,36 @@ router.post(
     }
   }
 );
-
+router.post(
+  '/getmessages',
+  isLoggedIn(),
+  async (req, res, next) => {
+    const { idChat, limit, offset } = req.body;
+    if (offset > 0) {
+      const chat = await Chat.findById(idChat);
+      const total = await Message.countDocuments({ _id: chat.messages });
+      if (offset <= 0) {
+        const messages = await Message.find({ _id: chat.messages }).limit(limit);
+        if (messages) {
+          return res.status(200).json({ messages, total });
+        }
+      } else {
+        const messages = await Message.find({ _id: chat.messages }).limit(limit).skip(offset - limit);
+        if (messages) {
+          return res.status(200).json({ messages, total, offset: offset - limit });
+        }
+      }
+    } else if (offset === -1) {
+      const chat = await Chat.findById(idChat);
+      const total = await Message.countDocuments({ _id: chat.messages });
+      const messages = await Message.find({ _id: chat.messages });
+      return res.status(200).json({ messages, total, all: true });
+    } else {
+      const chat = await Chat.findById(idChat);
+      const total = await Message.countDocuments({ _id: chat.messages });
+      const messages = await Message.find({ _id: chat.messages }).limit(limit).skip(total - limit);
+      return res.status(200).json({ messages, total, offset: total - limit });
+    }
+  }
+);
 module.exports = router;
