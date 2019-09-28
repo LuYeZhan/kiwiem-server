@@ -44,7 +44,6 @@ router.post(
   '/signup',
   isNotLoggedIn(),
   validationLoggin(),
-  console.log('signup antes de ejecutarse'),
   async (req, res, next) => {
     const { name, surname, email, password, userType } = req.body;
     try {
