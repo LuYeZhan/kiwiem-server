@@ -12,13 +12,13 @@ const commentSchema = new Schema({
   },
   rating: {
     type: Number,
-    required: true,
-  },
+    required: true
+  }
 }, {
   timestamps: {
     createdAt: 'created_at',
     updatedAt: 'updated_at'
-  },
+  }
 });
 
 const Comment = mongoose.model('Comment', commentSchema);
