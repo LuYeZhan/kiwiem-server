@@ -24,11 +24,11 @@ socket.io
 ## :hugs: Maintainers
 
 List all the team members. For example:
-* [Jesus Cebader - Zebader](https://github.com/zebader)
-* [Rundi Ye - Jundi](https://github.com/Rundiye)
-* [Jan Giménez - Jan](https://github.com/JanGimenezLayola)
-* [Adri Porcel - Illo](https://github.com/prrrcl)
-* [Lu Ye Zhan - Lu](https://github.com/LuYeZhan)
+* [Jesus Cebader - Zebader - Front End Coder & UI/UX](https://github.com/zebader)
+* [Rundi Ye - Jundi - BackEnd Coder](https://github.com/Rundiye)
+* [Jan Giménez - Jan - BackEnd Coder](https://github.com/JanGimenezLayola)
+* [Adri Porcel - Illo - Front End Coder](https://github.com/prrrcl)
+* [Lu Ye Zhan - Lu - Project Manager & Coder](https://github.com/LuYeZhan)
 
 
 ## :tada: Why is this so awesome?
