@@ -21,20 +21,21 @@ const tripSchema = new Schema({
     type: Date,
     required: true
   },
-  description: {
-    type: String
-  },
   needs: [{
     type: String
   }],
-  owner: String,
-  request: {
-    type: [ObjectId],
-    user: 'User'
-  },
+  requests: [{
+    type: ObjectId,
+    ref: 'User'
+  }],
   img: {
     type: String
-  }
+  },
+  thisAccepted: {
+    type: Boolean,
+    default: false
+  },
+  owner: String
 },
 
 {
