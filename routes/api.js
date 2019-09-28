@@ -23,7 +23,23 @@ router.get('/em', async (req, res, next) => {
     next(error);
   }
 });
-
+router.post('/pullrequest', async (req, res, next) => {
+  const { idTrip, user } = req.body;
+  try {
+    const trip = await Trip.findById(idTrip);
+    const iAm = trip.requests.some(() => {
+      return user === req.session.currentUser._id;
+    });
+    if (!iAm) {
+      await Trip.findByIdAndUpdate(idTrip, { $push: { requests: user } })
+        .then(
+          res.status(200).json({ message: 'Añadid@ correctamente!' })
+        );
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 router.get('/me', async (req, res, next) => {
   const userId = req.session.currentUser._id;
   try {
