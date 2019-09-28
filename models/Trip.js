@@ -2,13 +2,14 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const tripSchema = new Schema({
-  title: {
+  from: {
     type: String,
     required: true
   },
-  destination: {
+  to: {
     type: String,
     required: true
   },
@@ -26,8 +27,16 @@ const tripSchema = new Schema({
   needs: [{
     type: String
   }],
-  owner: String
+  owner: String,
+  request: {
+    type: [ObjectId],
+    user: 'User'
+  },
+  img: {
+    type: String
+  }
 },
+
 {
   timestamps: true
 });

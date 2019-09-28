@@ -35,6 +35,7 @@ const removeItemFromArr = (arr, item) => {
 const users = [];
 io.set('origins', '*:*');
 io.on('connection', socket => {
+  console.log('online');
   socket.on('imon', idUser => {
     const ami = users.filter(e => e === idUser);
     if (ami.length === 0 && idUser !== undefined) {
@@ -61,9 +62,10 @@ io.on('connection', socket => {
     });
   });
 
-  socket.on('home', async () => {
-    const trips = await Trip.find();
-    socket.broadcast.emit('home', trips);
+  socket.on('me', () => {
+    // const trips = await Trip.find();
+    const trips = ['pepe', 'ja'];
+    socket.broadcast.emit('me', trips);
   });
 });
 

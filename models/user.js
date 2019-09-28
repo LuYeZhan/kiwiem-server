@@ -25,7 +25,7 @@ const userSchema = new Schema({
     enum: ['volunteer', 'traveller']
   },
   pocket: {
-    type: Number,
+    type: Number
   },
   comments: [{
     type: ObjectId,
@@ -34,12 +34,12 @@ const userSchema = new Schema({
   myTrips: [{
     type: ObjectId,
     ref: 'Trip'
-  }],
+  }]
 }, {
   timestamps: {
     createdAt: 'created_at',
     updatedAt: 'updated_at'
-  },
+  }
 });
 
 const User = mongoose.model('User', userSchema);
