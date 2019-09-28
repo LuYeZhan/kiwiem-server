@@ -34,7 +34,10 @@ const userSchema = new Schema({
   myTrips: [{
     type: ObjectId,
     ref: 'Trip'
-  }]
+  }],
+  profilePic: {
+    type: String
+  }
 }, {
   timestamps: {
     createdAt: 'created_at',

@@ -53,9 +53,17 @@ router.post(
       } else {
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
-        const newUser = await User.create({ name, surname, email, password: hashPass, userType });
-        req.session.currentUser = newUser;
-        res.status(200).json(newUser);
+        if (userType === 'volunteer') {
+          const profilePic = 'https://www.avoskinbeauty.com/blog/wp-content/uploads/ok-18.jpg';
+          const newUser = await User.create({ name, surname, email, password: hashPass, userType, profilePic });
+          req.session.currentUser = newUser;
+          res.status(200).json(newUser);
+        } else {
+          const profilePic = 'https://st4.depositphotos.com/1010815/21061/v/600/depositphotos_210616400-stock-video-friendly-caucasian-old-man-waving.jpg';
+          const newUser = await User.create({ name, surname, email, password: hashPass, userType, profilePic });
+          req.session.currentUser = newUser;
+          res.status(200).json(newUser);
+        }
       }
     } catch (error) {
       next(error);
