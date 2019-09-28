@@ -12,10 +12,6 @@ const Message = require('../models/Message.js');
 const Chat = require('../models/Chat.js');
 
 const {
-  validationFormTrip
-} = require('../helpers/middlewaresTrips.js');
-
-const {
   isLoggedIn
 } = require('../helpers/middlewares');
 
@@ -38,21 +34,13 @@ router.get('/me', async (req, res, next) => {
   }
 });
 
-router.post('/trip/add', validationFormTrip(), async (req, res, next) => {
-  const newTrip = req.body;
-  newTrip.owner = req.session.currentUser._id;
-  const listOfTrips = await Trip.find();
+router.post('/trip/add', async (req, res, next) => {
+  const trip = req.body;
   try {
-    listOfTrips.forEach(trip => {
-      if (newTrip.title === trip.title && newTrip.owner === trip.owner) {
-        return next(createError(428));
-      }
-    });
-    const createdTrip = await Trip.create(newTrip);
-    res.status(200).json(createdTrip);
-    await User.findByIdAndUpdate(newTrip.owner, { $push: { myTrips: createdTrip._id } });
-  } catch (error) {
-    next(error);
+    const newTrip = await Trip.create(trip);
+    res.status(200).json(newTrip);
+  } catch (err) {
+    next(err);
   }
 });
 

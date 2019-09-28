@@ -53,7 +53,7 @@ router.post(
       } else {
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
-        const newUser = await User.create({ name, surname, email,  password: hashPass, userType });
+        const newUser = await User.create({ name, surname, email, password: hashPass, userType });
         req.session.currentUser = newUser;
         res.status(200).json(newUser);
       }
