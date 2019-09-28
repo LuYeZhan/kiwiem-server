@@ -25,12 +25,9 @@ router.get('/em', async (req, res, next) => {
 });
 router.post('/pullrequest', async (req, res, next) => {
   const { idTrip, user } = req.body;
+  const isvalid = mongoose.Types.ObjectId.isValid(idTrip);
   try {
-    const trip = await Trip.findById(idTrip);
-    const iAm = trip.requests.some(() => {
-      return user === req.session.currentUser._id;
-    });
-    if (!iAm) {
+    if (isvalid) {
       await Trip.findByIdAndUpdate(idTrip, { $push: { requests: user } })
         .then(
           res.status(200).json({ message: 'Añadid@ correctamente!' })
@@ -167,4 +164,5 @@ router.post(
     }
   }
 );
-module.exports = router;
+module.exports = router
+;
