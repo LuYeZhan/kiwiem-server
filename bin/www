@@ -62,9 +62,8 @@ io.on('connection', socket => {
     });
   });
 
-  socket.on('me', () => {
-    // const trips = await Trip.find();
-    const trips = ['pepe', 'ja'];
+  socket.on('me', async () => {
+    const trips = await Trip.find();
     socket.broadcast.emit('me', trips);
   });
 });
