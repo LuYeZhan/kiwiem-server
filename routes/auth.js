@@ -44,16 +44,19 @@ router.post(
   '/signup',
   isNotLoggedIn(),
   validationLoggin(),
+  console.log('signup antes de ejecutarse'),
   async (req, res, next) => {
     const { name, surname, email, password, userType } = req.body;
     try {
       const user = await User.findOne({ email }, 'email');
+      console.log('signup despues del await');
       if (user) {
         return next(createError(422));
       } else {
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
         const newUser = await User.create({ name, surname, email, password: hashPass, userType });
+        console.log('usuario creado');
         req.session.currentUser = newUser;
         res.status(200).json(newUser);
       }
