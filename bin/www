@@ -4,22 +4,68 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('api-auth:server');
-var http = require('http');
+const app = require('../app');
+const debug = require('debug')('api-auth:server');
+const http = require('http');
+const socketIo = require('socket.io');
 
+const Trip = require('../models/Trip');
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '4000');
+const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
+
+const io = socketIo(server);
+
+const removeItemFromArr = (arr, item) => {
+  const i = arr.indexOf(item);
+
+  if (i !== -1) {
+    arr.splice(i, 1);
+  }
+};
+const users = [];
+io.set('origins', '*:*');
+io.on('connection', socket => {
+  socket.on('imon', idUser => {
+    const ami = users.filter(e => e === idUser);
+    if (ami.length === 0 && idUser !== undefined) {
+      users.push(idUser);
+    }
+    socket.emit('getusers', { users });
+    socket.broadcast.emit('heison', users);
+  });
+  socket.on('imoff', id => {
+    removeItemFromArr(users, id);
+    socket.broadcast.emit('heisoff', users);
+  });
+  socket.on('disconnect', () => {
+    console.log('desconectado');
+  });
+
+  socket.on('isTyping', objeto => {
+    socket.broadcast.emit('isTyping', objeto);
+  });
+  socket.on('message', body => {
+    socket.broadcast.emit('message', {
+      body,
+      from: socket.id
+    });
+  });
+
+  socket.on('home', async () => {
+    const trips = await Trip.find();
+    socket.broadcast.emit('home', trips);
+  });
+});
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -34,7 +80,7 @@ server.on('listening', onListening);
  */
 
 function normalizePort (val) {
-  var port = parseInt(val, 10);
+  const port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -58,7 +104,7 @@ function onError (error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  const bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
@@ -82,8 +128,8 @@ function onError (error) {
  */
 
 function onListening () {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
+  const addr = server.address();
+  const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
