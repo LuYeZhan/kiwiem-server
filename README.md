@@ -24,11 +24,11 @@ socket.io
 ## :hugs: Maintainers
 
 List all the team members. For example:
-* [Jesus Cebader - Zebader - Front End Coder & UI/UX](https://github.com/zebader)
-* [Rundi Ye - Jundi - BackEnd Coder](https://github.com/Rundiye)
-* [Jan Giménez - Jan - BackEnd Coder](https://github.com/JanGimenezLayola)
-* [Adri Porcel - Illo - Front End Coder](https://github.com/prrrcl)
-* [Lu Ye Zhan - Lu - Project Manager & Coder](https://github.com/LuYeZhan)
+* [Jesus Cebader - Zebader](https://www.linkedin.com/in/jesuscebader/)
+* [Rundi Ye - Jundi](https://www.linkedin.com/in/rundiye/)
+* [Jan Giménez - Jan](https://www.linkedin.com/in/jan-gimenez-layola/)
+* [Adri Porcel - Illo](https://www.linkedin.com/in/prrrcl/)
+* [Lu Ye Zhan - Lu](https://www.linkedin.com/in/lu-ye-zhan-fullstackdeveloper/)
 
 
 ## :tada: Why is this so awesome?
@@ -44,7 +44,7 @@ List all the team members. For example:
 2. Open the project directory and run npm install in the command line.
 3. Run npm start to execute the project in local.
 
-[Client Server Github](https://github.com/LuYeZhan/GTH-Barcelona-ConsoleLu/blob/master/README.md)
+[Server API Github](https://github.com/LuYeZhan/kiwiem-server)
 
 ## :bulb: Devstack
 
@@ -67,9 +67,6 @@ Libraries:
 -  **Add Trips:** As a user I can add a trips and post them so that other users can see them.
 -  **Join Trips:** As a user I can join to a trip I'm interested in.
 -  **Edit Trips:** As a user I can edit a trip I created.
-
-## Backlog
-
  - Mailing: confirmation by email
  - Ratings: users can rate each other
  - Edit User Profile
