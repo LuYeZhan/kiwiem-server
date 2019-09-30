@@ -51,9 +51,19 @@ router.get('/me', async (req, res, next) => {
 });
 
 router.post('/trip/add', async (req, res, next) => {
-  const trip = req.body;
   try {
-    const newTrip = await Trip.create(trip);
+    const { from, to, startDate, endDate, needs1, needs2, needs3, owner } = req.body;
+    const newTrip = await Trip.create({
+      from,
+      to,
+      startDate,
+      endDate,
+      needs1,
+      needs2,
+      needs3,
+      owner,
+      img: `https://source.unsplash.com/featured/800x450/?${to}`
+    });
     res.status(200).json(newTrip);
   } catch (err) {
     next(err);
